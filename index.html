@@ -4,69 +4,69 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="梁振轩的 AIGC 作品集" />
-    <title>梁振轩 | AIGC 探索者</title>
+    <title>梁振轩 | M-AIGC</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <header class="site-header">
+    <div class="page-grid" aria-hidden="true"></div>
+    <header class="nav-shell" id="top">
       <a class="brand" href="#home" aria-label="返回首页">M<span>-</span>AIGC</a>
+      <button class="menu-toggle" type="button" aria-label="打开导航" aria-expanded="false"><i></i><i></i></button>
       <nav aria-label="主导航">
-        <a class="active" href="#home">首页</a>
-        <a href="#skills">个人能力</a>
-        <a href="#images">图片</a>
-        <a href="#videos">视频</a>
-        <a href="#runninghub">RunningHub</a>
+        <a href="#skills">能力</a><a href="#gallery">作品</a><a href="#motion">视频</a><a href="#runninghub">主页</a>
       </nav>
-      <span class="header-index">2026 / PORTFOLIO</span>
+      <a class="nav-contact" href="#contact">联系我 <b>↗</b></a>
     </header>
 
     <main>
       <section class="hero" id="home">
-        <div class="hero-topline"><span>01 / AIGC PORTFOLIO</span><span>SHINKU</span></div>
-        <div class="hero-copy">
-          <p class="eyebrow">AIGC EXPLORER</p>
-          <h1>梁振轩</h1>
-          <p class="intro">AIGC 探索者</p>
+        <video class="hero-video" autoplay muted loop playsinline preload="metadata" src="视频/郁金香钻戒.mp4"></video>
+        <div class="hero-orbit orbit-one"></div><div class="hero-orbit orbit-two"></div><div class="hero-orbit orbit-three"></div>
+        <p class="hero-kicker reveal">梁振轩的创作存档 / 2026</p>
+        <div class="hero-wordmark" aria-hidden="true"><span>M</span><i></i><span>AIGC</span></div>
+        <div class="hero-bottom reveal">
+          <h1>梁振轩<br /><em>AIGC 探索者</em></h1>
+          <p>以模型、工具与视觉实验<br />扩展创作的边界。</p>
         </div>
-        <div class="contact"><span>电话&nbsp; 18244900062</span><span>邮箱&nbsp; www.shinku@hotmail.com</span><span>微信&nbsp; LiangsMerchant</span></div>
-        <a class="scroll-prompt" href="#skills">向下浏览 <i>↓</i></a>
+        <a class="scroll-cue" href="#skills">向下探索 <span>↓</span></a>
       </section>
 
-      <section class="skills band dark" id="skills">
-        <div class="section-heading"><span>02 / CAPABILITIES</span><h2>个人能力</h2></div>
-        <div class="skills-grid">
-          <article class="skill-group"><p class="group-index">01</p><h3>熟悉的<br />AI 模型</h3><ul class="model-list"><li>GPT</li><li>Claude</li><li>Gemini</li><li>DeepSeek</li><li>Kimi</li><li>Qwen</li><li>豆包</li><li>Midjourney</li></ul></article>
-          <article class="skill-group"><p class="group-index">02</p><h3>掌握的<br />工具</h3><ul class="model-list"><li>Claude Code</li><li>Codex</li><li>OpenClaw</li><li>Hermes</li><li>ComfyUI</li></ul></article>
-        </div>
-      </section>
-
-      <section class="gallery band" id="images">
-        <div class="section-heading"><span>03 / SELECTED IMAGES</span><h2>图片作品</h2><p>点击作品放大查看</p></div>
-        <div class="image-grid" id="image-grid"></div>
-      </section>
-
-      <section class="videos band dark" id="videos">
-        <div class="section-heading"><span>04 / MOTION</span><h2>视频作品</h2></div>
-        <div class="video-grid">
-          <article class="video-card"><div class="video-frame"><video controls preload="metadata" src="视频/郁金香钻戒.mp4"></video></div><p class="video-number">01</p><h3>郁金香钻戒</h3></article>
-          <article class="video-card"><div class="video-frame"><video controls preload="metadata" src="视频/蜂蜜产品广告.mp4"></video></div><p class="video-number">02</p><h3>蜂蜜产品广告</h3></article>
+      <section class="capabilities section-pad" id="skills">
+        <div class="section-intro reveal"><p>01 / CAPABILITIES</p><h2>让工具成为<br />创作直觉。</h2><span>模型与工具，是每一次尝试的起点。</span></div>
+        <div class="skill-stack">
+          <article class="skill-card skill-card-models reveal"><video autoplay muted loop playsinline preload="metadata" src="视频/蜂蜜产品广告.mp4"></video><div><p>01 / MODELS</p><h3>熟悉的<br />AI 模型</h3></div><ul><li>GPT</li><li>Claude</li><li>Gemini</li><li>DeepSeek</li><li>Kimi</li><li>Qwen</li><li>豆包</li><li>Midjourney</li></ul></article>
+          <article class="skill-card skill-card-tools reveal"><div><p>02 / TOOLS</p><h3>掌握的<br />创作工具</h3></div><ul><li>Claude Code</li><li>Codex</li><li>OpenClaw</li><li>Hermes</li><li>ComfyUI</li></ul><strong>MAKE / TEST / REFINE</strong></article>
         </div>
       </section>
 
-      <section class="runninghub band" id="runninghub">
-        <div class="section-heading"><span>05 / SPACE</span><h2>RunningHub</h2><p>我的个人主页</p></div>
-        <a class="project-url" href="https://www.runninghub.cn/user-center/1966438189181353985/userPost?inviteCode=s00retpj" target="_blank" rel="noreferrer">https://www.runninghub.cn/user-center/1966438189181353985/userPost?inviteCode=s00retpj <i>↗</i></a>
-        <a class="project-link" href="https://www.runninghub.cn/user-center/1966438189181353985/userPost?inviteCode=s00retpj" target="_blank" rel="noreferrer">
-          <div class="project-shot"><img src="RH主页/主页.png" alt="梁振轩的 RunningHub 主页截图" /></div>
-          <div class="project-caption"><span>RUNNINGHUB / USER SPACE</span><strong>访问主页 <i>↗</i></strong></div>
-        </a>
+      <section class="gallery section-pad" id="gallery">
+        <div class="gallery-heading reveal"><p>02 / SELECTED WORKS</p><h2>图像是<br />正在发生的想象。</h2><span>移动光标或点击，展开作品。</span></div>
+        <div class="portfolio-accordion" id="image-grid" aria-label="图片作品"></div>
+      </section>
+
+      <section class="motion section-pad" id="motion">
+        <div class="motion-heading reveal"><p>03 / MOTION STUDIES</p><h2>让静止<br />继续生长。</h2></div>
+        <div class="video-list">
+          <article class="film reveal"><div class="film-meta"><span>01</span><h3>郁金香钻戒</h3><span>PRODUCT FILM</span></div><video controls preload="metadata" src="视频/郁金香钻戒.mp4"></video></article>
+          <article class="film reveal"><div class="film-meta"><span>02</span><h3>蜂蜜产品广告</h3><span>PRODUCT FILM</span></div><video controls preload="metadata" src="视频/蜂蜜产品广告.mp4"></video></article>
+        </div>
+      </section>
+
+      <section class="runninghub section-pad" id="runninghub">
+        <p class="section-label reveal">04 / A PLACE TO BUILD</p>
+        <a class="hub-link reveal" href="https://www.runninghub.cn/user-center/1966438189181353985/userPost?inviteCode=s00retpj" target="_blank" rel="noreferrer"><span>RunningHub</span><i>↗</i></a>
+        <div class="hub-layout reveal"><img src="RH主页/主页.png" alt="梁振轩的 RunningHub 主页截图" /><div><p>我的 RunningHub 主页</p><a href="https://www.runninghub.cn/user-center/1966438189181353985/userPost?inviteCode=s00retpj" target="_blank" rel="noreferrer">https://www.runninghub.cn/<br />user-center/1966438189181353985/<br />userPost?inviteCode=s00retpj</a></div></div>
       </section>
     </main>
 
-    <footer><span>梁振轩 / AIGC 探索者</span><span>© 2026</span><a href="#home">回到顶部 ↑</a></footer>
+    <footer id="contact">
+      <p class="footer-index">05 / CONTACT</p>
+      <a class="footer-title" href="mailto:www.shinku@hotmail.com">LET'S<br />CONNECT<span>.</span></a>
+      <div class="contact-grid"><a href="tel:18244900062"><small>PHONE</small>18244900062</a><a href="mailto:www.shinku@hotmail.com"><small>EMAIL</small>www.shinku@hotmail.com</a><span><small>WECHAT</small>LiangsMerchant</span><a href="#top"><small>PORTFOLIO</small>返回顶部 ↑</a></div>
+    </footer>
     <dialog class="lightbox" id="lightbox"><button aria-label="关闭图片预览">×</button><img src="" alt="" /></dialog>
     <script src="script.js"></script>
   </body>
