@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="梁振轩的 AIGC 作品集" />
+    <title>梁振轩 | AIGC 探索者</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#home" aria-label="返回首页">M<span>-</span>AIGC</a>
+      <nav aria-label="主导航">
+        <a class="active" href="#home">首页</a>
+        <a href="#skills">个人能力</a>
+        <a href="#images">图片</a>
+        <a href="#videos">视频</a>
+        <a href="#runninghub">RunningHub</a>
+      </nav>
+      <span class="header-index">2026 / PORTFOLIO</span>
+    </header>
+
+    <main>
+      <section class="hero" id="home">
+        <div class="hero-topline"><span>01 / AIGC PORTFOLIO</span><span>SHINKU</span></div>
+        <div class="hero-copy">
+          <p class="eyebrow">AIGC EXPLORER</p>
+          <h1>梁振轩</h1>
+          <p class="intro">AIGC 探索者</p>
+        </div>
+        <div class="contact"><span>电话&nbsp; 18244900062</span><span>邮箱&nbsp; www.shinku@hotmail.com</span><span>微信&nbsp; LiangsMerchant</span></div>
+        <a class="scroll-prompt" href="#skills">向下浏览 <i>↓</i></a>
+      </section>
+
+      <section class="skills band dark" id="skills">
+        <div class="section-heading"><span>02 / CAPABILITIES</span><h2>个人能力</h2></div>
+        <div class="skills-grid">
+          <article class="skill-group"><p class="group-index">01</p><h3>熟悉的<br />AI 模型</h3><ul class="model-list"><li>GPT</li><li>Claude</li><li>Gemini</li><li>DeepSeek</li><li>Kimi</li><li>Qwen</li><li>豆包</li><li>Midjourney</li></ul></article>
+          <article class="skill-group"><p class="group-index">02</p><h3>掌握的<br />工具</h3><ul class="model-list"><li>Claude Code</li><li>Codex</li><li>OpenClaw</li><li>Hermes</li><li>ComfyUI</li></ul></article>
+        </div>
+      </section>
+
+      <section class="gallery band" id="images">
+        <div class="section-heading"><span>03 / SELECTED IMAGES</span><h2>图片作品</h2><p>点击作品放大查看</p></div>
+        <div class="image-grid" id="image-grid"></div>
+      </section>
+
+      <section class="videos band dark" id="videos">
+        <div class="section-heading"><span>04 / MOTION</span><h2>视频作品</h2></div>
+        <div class="video-grid">
+          <article class="video-card"><div class="video-frame"><video controls preload="metadata" src="视频/郁金香钻戒.mp4"></video></div><p class="video-number">01</p><h3>郁金香钻戒</h3></article>
+          <article class="video-card"><div class="video-frame"><video controls preload="metadata" src="视频/蜂蜜产品广告.mp4"></video></div><p class="video-number">02</p><h3>蜂蜜产品广告</h3></article>
+        </div>
+      </section>
+
+      <section class="runninghub band" id="runninghub">
+        <div class="section-heading"><span>05 / SPACE</span><h2>RunningHub</h2><p>我的个人主页</p></div>
+        <a class="project-url" href="https://www.runninghub.cn/user-center/1966438189181353985/userPost?inviteCode=s00retpj" target="_blank" rel="noreferrer">https://www.runninghub.cn/user-center/1966438189181353985/userPost?inviteCode=s00retpj <i>↗</i></a>
+        <a class="project-link" href="https://www.runninghub.cn/user-center/1966438189181353985/userPost?inviteCode=s00retpj" target="_blank" rel="noreferrer">
+          <div class="project-shot"><img src="RH主页/主页.png" alt="梁振轩的 RunningHub 主页截图" /></div>
+          <div class="project-caption"><span>RUNNINGHUB / USER SPACE</span><strong>访问主页 <i>↗</i></strong></div>
+        </a>
+      </section>
+    </main>
+
+    <footer><span>梁振轩 / AIGC 探索者</span><span>© 2026</span><a href="#home">回到顶部 ↑</a></footer>
+    <dialog class="lightbox" id="lightbox"><button aria-label="关闭图片预览">×</button><img src="" alt="" /></dialog>
+    <script src="script.js"></script>
+  </body>
+</html>
