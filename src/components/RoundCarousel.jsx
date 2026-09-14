@@ -10,7 +10,7 @@ export default function RoundCarousel({ images }) {
   const rotationRef = useRef(0);
   const velocityRef = useRef(0);
   const lastFrameRef = useRef(0);
-  const dragRef = useRef({ active: false, x: 0 });
+  const dragRef = useRef({ active: false, axis: null, pointerId: null, x: 0, y: 0 });
   const [size, setSize] = useState({ width: 450, height: 600, radius: 707 });
   const angle = useMemo(() => 360 / images.length, [images.length]);
 
@@ -59,27 +59,48 @@ export default function RoundCarousel({ images }) {
   };
 
   const pointerDown = event => {
-    if (event.target.closest('.carousel-control')) return;
-    event.currentTarget.setPointerCapture?.(event.pointerId);
-    dragRef.current = { active: true, x: event.clientX };
+    if (!event.isPrimary || event.target.closest('.carousel-control')) return;
+    dragRef.current = { active: false, axis: null, pointerId: event.pointerId, x: event.clientX, y: event.clientY };
     velocityRef.current = 0;
   };
   const pointerMove = event => {
-    if (!dragRef.current.active) return;
-    const dx = event.clientX - dragRef.current.x;
-    dragRef.current.x = event.clientX;
+    const drag = dragRef.current;
+    if (drag.pointerId !== event.pointerId) return;
+
+    if (!drag.axis) {
+      const horizontalDistance = Math.abs(event.clientX - drag.x);
+      const verticalDistance = Math.abs(event.clientY - drag.y);
+      if (Math.max(horizontalDistance, verticalDistance) < 10) return;
+
+      if (verticalDistance >= horizontalDistance) {
+        drag.axis = 'vertical';
+        return;
+      }
+
+      drag.axis = 'horizontal';
+      drag.active = true;
+      drag.x = event.clientX;
+      drag.y = event.clientY;
+      event.currentTarget.setPointerCapture?.(event.pointerId);
+      return;
+    }
+
+    if (drag.axis !== 'horizontal' || !drag.active) return;
+    const dx = event.clientX - drag.x;
+    drag.x = event.clientX;
     rotationRef.current += dx * 1.5;
     velocityRef.current = dx * 90;
     ringRef.current.style.transform = `translateZ(${-size.radius}px) rotateY(${rotationRef.current}deg)`;
   };
   const pointerUp = event => {
-    if (event.target.closest('.carousel-control')) return;
-    event.currentTarget.releasePointerCapture?.(event.pointerId);
-    dragRef.current.active = false;
+    if (dragRef.current.pointerId !== event.pointerId) return;
+    if (event.currentTarget.hasPointerCapture?.(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId);
+    dragRef.current = { active: false, axis: null, pointerId: null, x: 0, y: 0 };
   };
   const pointerCancel = event => {
-    event.currentTarget.releasePointerCapture?.(event.pointerId);
-    dragRef.current.active = false;
+    if (dragRef.current.pointerId !== event.pointerId) return;
+    if (event.currentTarget.hasPointerCapture?.(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId);
+    dragRef.current = { active: false, axis: null, pointerId: null, x: 0, y: 0 };
   };
 
   return <div className="round-carousel" ref={stageRef} aria-label="图片作品环形展示" onPointerDown={pointerDown} onPointerMove={pointerMove} onPointerUp={pointerUp} onPointerCancel={pointerCancel}>
