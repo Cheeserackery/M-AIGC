@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import RoundCarousel from './components/RoundCarousel';
-import { galleryImages, imagePath, imageTitle } from './data';
+import { galleryImages } from './data';
 
 const videos = [
   { title: '郁金香钻戒', type: 'PRODUCT FILM', file: '郁金香钻戒.mp4' },
@@ -22,14 +22,7 @@ function Reveal({ children, className = '' }) {
 
 export default function App() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [selectedImage, setSelectedImage] = useState(null);
   const closeMenu = () => setMenuOpen(false);
-
-  useEffect(() => {
-    const closeOnEscape = event => event.key === 'Escape' && setSelectedImage(null);
-    window.addEventListener('keydown', closeOnEscape);
-    return () => window.removeEventListener('keydown', closeOnEscape);
-  }, []);
 
   return <>
     <header className="nav-shell" id="top">
@@ -61,7 +54,7 @@ export default function App() {
 
       <section className="gallery section-pad" id="gallery">
         <Reveal className="gallery-heading"><p>02 / IMAGE ARCHIVE</p><h2>图像是<br />正在发生的想象。</h2><span>拖拽图片，浏览作品。</span></Reveal>
-        <RoundCarousel images={galleryImages.slice(0, 8)} onSelect={setSelectedImage} />
+        <RoundCarousel images={galleryImages} />
       </section>
 
       <section className="motion section-pad" id="motion">
@@ -74,12 +67,10 @@ export default function App() {
       <section className="runninghub section-pad" id="runninghub">
         <p className="section-label">04 / A PLACE TO BUILD</p>
         <a className="hub-link" href="https://www.runninghub.cn/user-center/1966438189181353985/userPost?inviteCode=s00retpj" target="_blank" rel="noreferrer"><span>RunningHub</span><i>↗</i></a>
-        <div className="hub-layout"><img src="/RH主页/主页.png" alt="梁振轩的 RunningHub 主页截图" /><div><p>我的 RunningHub 主页</p><a href="https://www.runninghub.cn/user-center/1966438189181353985/userPost?inviteCode=s00retpj" target="_blank" rel="noreferrer">https://www.runninghub.cn/user-center/<br />1966438189181353985/userPost?inviteCode=s00retpj</a></div></div>
+        <div className="hub-layout"><div className="hub-preview"><img src="/RH主页/主页.png" alt="梁振轩的 RunningHub 创作主页" /></div><div className="hub-copy"><p className="hub-kicker">PROFILE / 2026</p><h3>我的 RunningHub<br />创作主页</h3><p>持续归档工作流、模型实验与视觉项目。</p><a href="https://www.runninghub.cn/user-center/1966438189181353985/userPost?inviteCode=s00retpj" target="_blank" rel="noreferrer">访问主页 <span>↗</span></a></div></div>
       </section>
     </main>
 
     <footer id="contact"><p className="footer-index">05 / CONTACT</p><p className="footer-title">LET&apos;S<br />CONNECT<span>.</span></p><div className="contact-grid"><a href="tel:18244900062"><small>PHONE</small>18244900062</a><a href="mailto:www.shinku@hotmail.com"><small>EMAIL</small>www.shinku@hotmail.com</a><span><small>WECHAT</small>LiangsMerchant</span><a href="#home"><small>PORTFOLIO</small>返回顶部 ↑</a></div></footer>
-
-    {selectedImage && <div className="lightbox" role="dialog" aria-modal="true" aria-label="图片预览" onClick={() => setSelectedImage(null)}><button type="button" aria-label="关闭图片预览" onClick={() => setSelectedImage(null)}>×</button><img src={imagePath(selectedImage)} alt={imageTitle(selectedImage)} onClick={event => event.stopPropagation()} /></div>}
   </>;
 }
