@@ -1,53 +1,102 @@
-const imagePages = [
-  [
-    { title: '创意生成', code: '01 / CREATIVE GENERATION', folder: '1.创意生成', files: ['Street-梵高.jpg', '五彩街.png', '学习 更多的学习.jpg', '德文1.jpg', '德文2.jpg', '森林写生.png', '比熊犬.jpg', '街头逻辑猫.jpg', '金郁金香.png', '雪糕漠.jpg'] },
-    { title: '产品宣传', code: '02 / PRODUCT CAMPAIGNS', folder: '2.产品宣传', files: ['ComfyUI_temp_bucxk_00001_lcitx_1776990490.jpg', 'ComfyUI_temp_jtedy_00003_hsfey_1783864244.jpg', 'ComfyUI_temp_jtedy_00009_ccgvn_1783868492.jpg', 'ComfyUI_temp_mdodm_00001_ziysk_1783845597.jpg', 'ComfyUI_temp_pfxnm_00001_hqlgo_1776956152.jpg', '系列4 拷贝.jpg'] }
-  ],
-  [
-    { title: '参赛作品', code: '03 / COMPETITION WORKS', folder: '3.参赛作品', files: ['唐风金玉.png', '岩彩霓裳.jpg', '石刻春秋，花映禅心.jpg', '神都墨韵.jpg', '纸映隋唐，花开神都.jpg'] },
-    { title: '一些其他', code: '04 / OTHER EXPLORATIONS', folder: '4.一些其他', files: ['2026端午.jpg', '2026马年.png', 'Pots_Two_Months_Growth++ .jpg', '多肉微距.jpg', '手表+.jpg', '洋牡丹微距.jpg'] }
-  ]
+const galleryImages = [
+  '雪糕漠.jpg', '金郁金香.png', '纸映隋唐，花开神都.jpg', '系列4 拷贝.jpg', '石刻春秋，花映禅心.jpg', '比熊犬.jpg', '森林写生.png', '德文2.jpg', '德文1.jpg', '底图.jpg', '工作流封面2.jpg', '工作流封面.jpg', '岩彩霓裳.jpg', '封面.jpg', '封面-真2.jpg', '学习 更多的学习.jpg', '图生图-正午-稳定.jpg', '唐风金玉.png', '参考图.jpg', '五彩街.png', 'Street-梵高.jpg', 'MJ封面.jpg', 'FINAL3.jpg', 'FINAL3-15 拷贝.jpg', 'ComfyUI_temp_pfxnm_00006_zfnpp_1776957034.jpg', 'ComfyUI_temp_pfxnm_00005_jttth_1776956944.jpg', 'ComfyUI_temp_pfxnm_00001_hqlgo_1776956152.jpg', 'ComfyUI_temp_jtedy_00009_ccgvn_1783868492.jpg', 'ComfyUI_temp_jtedy_00003_hsfey_1783864244.jpg', 'ComfyUI_temp_hgqgk_00001_uofqe_1787717211.jpg', 'ComfyUI_temp_bucxk_00001_lcitx_1776990490.jpg', '7.漫画.jpg', '7.8 拷贝.jpg', '555.jpg', '5.1jpg.jpg', '3 拷贝.jpg', '265.jpg', '2321.png', '22.jpg', '2026马年.png', '2.78 拷贝.jpg', '11.jpg'
 ];
 
-const gallery = document.querySelector('#image-grid');
 const lightbox = document.querySelector('#lightbox');
 const lightboxImage = lightbox.querySelector('img');
 
-function imageUrl(folder, file) {
-  return encodeURI(`图片/${folder}/${file}`);
+const carousel = document.querySelector('#round-carousel');
+const ring = document.querySelector('#round-carousel-ring');
+const carouselIndex = document.querySelector('#carousel-index');
+const carouselTitle = document.querySelector('#carousel-title');
+const carouselCount = document.querySelector('#carousel-count');
+const imageUrl = file => encodeURI(`图片/${file}`);
+const readableTitle = file => file.replace(/\.[^.]+$/, '').replace(/[_+]+/g, ' ').trim();
+
+let carouselState = { rotation: 0, velocity: 0, active: 0, lastTime: 0, dragging: false, pointerX: 0, width: 260, height: 330, radius: 0 };
+const angle = 360 / galleryImages.length;
+carouselCount.textContent = `${String(galleryImages.length).padStart(2, '0')} WORKS`;
+carouselTitle.textContent = readableTitle(galleryImages[0]);
+
+galleryImages.forEach((file, index) => {
+  const card = document.createElement('button');
+  card.className = 'round-carousel-card';
+  card.type = 'button';
+  card.setAttribute('aria-label', `查看图片 ${index + 1}: ${readableTitle(file)}`);
+  const source = imageUrl(file);
+  card.innerHTML = `<img loading="lazy" src="${source}" alt="${readableTitle(file)}"><span>${String(index + 1).padStart(2, '0')}</span>`;
+  card.addEventListener('click', () => {
+    lightboxImage.src = source;
+    lightboxImage.alt = readableTitle(file);
+    lightbox.showModal();
+  });
+  ring.append(card);
+});
+
+function updateCarouselSize() {
+  const width = carousel.clientWidth;
+  carouselState.width = Math.min(320, Math.max(150, width * (width < 600 ? .48 : .26)));
+  carouselState.height = carouselState.width * 1.18;
+  carouselState.radius = (carouselState.width * 1.03) / (2 * Math.tan(Math.PI / galleryImages.length));
+  ring.style.width = `${carouselState.width}px`;
+  ring.style.height = `${carouselState.height}px`;
+  ring.style.marginLeft = `${-carouselState.width / 2}px`;
+  ring.style.marginTop = `${-carouselState.height / 2}px`;
+  ring.querySelectorAll('.round-carousel-card').forEach((card, index) => {
+    card.style.width = `${carouselState.width}px`;
+    card.style.height = `${carouselState.height}px`;
+    card.style.transform = `rotateY(${index * angle}deg) translateZ(${carouselState.radius}px)`;
+  });
+  applyRotation();
 }
 
-imagePages.forEach((page, pageIndex) => {
-  const spread = document.createElement('section');
-  spread.className = 'image-spread';
-  page.forEach(category => {
-    const categoryCard = document.createElement('article');
-    categoryCard.className = 'category-accordion';
-    categoryCard.innerHTML = `<header><p>${category.code}</p><h3>${category.title}</h3><span>${String(category.files.length).padStart(2, '0')} WORKS</span></header><div class="category-accordion-images"></div>`;
-    const accordion = categoryCard.querySelector('.category-accordion-images');
-    category.files.forEach((file, index) => {
-      const button = document.createElement('button');
-      button.className = `accordion-work${index === 0 ? ' active' : ''}`;
-      button.type = 'button';
-      button.setAttribute('aria-label', `查看${category.title}作品 ${index + 1}`);
-      const source = imageUrl(category.folder, file);
-      button.innerHTML = `<img loading="lazy" src="${source}" alt="${category.title}作品 ${index + 1}"><span>${String(index + 1).padStart(2, '0')}</span>`;
-      const activate = () => accordion.querySelectorAll('.accordion-work').forEach(item => item.classList.toggle('active', item === button));
-      button.addEventListener('pointerenter', activate);
-      button.addEventListener('focus', activate);
-      button.addEventListener('click', () => {
-        activate();
-        lightboxImage.src = source;
-        lightboxImage.alt = `${category.title}作品 ${index + 1}`;
-        lightbox.showModal();
-      });
-      accordion.append(button);
-    });
-    spread.append(categoryCard);
-  });
-  spread.insertAdjacentHTML('beforeend', '<p class="image-spread-note">因页面有限，选取部分作品展示</p>');
-  gallery.append(spread);
+function applyRotation() {
+  ring.style.transform = `translateZ(${-carouselState.radius}px) rotateY(${carouselState.rotation}deg)`;
+  const front = ((Math.round(-carouselState.rotation / angle) % galleryImages.length) + galleryImages.length) % galleryImages.length;
+  if (front !== carouselState.active) {
+    carouselState.active = front;
+    carouselIndex.textContent = String(front + 1).padStart(2, '0');
+    carouselTitle.textContent = readableTitle(galleryImages[front]);
+  }
+}
+
+function tick(now) {
+  const dt = carouselState.lastTime ? Math.min((now - carouselState.lastTime) / 1000, .1) : 0;
+  carouselState.lastTime = now;
+  if (!carouselState.dragging) {
+    if (Math.abs(carouselState.velocity) > .01) {
+      carouselState.rotation += carouselState.velocity * dt;
+      carouselState.velocity *= .94;
+    } else if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) carouselState.rotation += 4.2 * dt;
+    applyRotation();
+  }
+  requestAnimationFrame(tick);
+}
+
+carousel.addEventListener('pointerdown', event => {
+  if (event.target.closest('.carousel-arrow')) return;
+  carousel.setPointerCapture?.(event.pointerId);
+  carouselState.dragging = true;
+  carouselState.pointerX = event.clientX;
+  carouselState.velocity = 0;
+  carousel.classList.add('is-dragging');
 });
+carousel.addEventListener('pointermove', event => {
+  if (!carouselState.dragging) return;
+  const dx = event.clientX - carouselState.pointerX;
+  carouselState.pointerX = event.clientX;
+  carouselState.rotation += dx * .28;
+  carouselState.velocity = dx * .28 * 60;
+  applyRotation();
+});
+const endDrag = event => { carousel.releasePointerCapture?.(event.pointerId); carouselState.dragging = false; carousel.classList.remove('is-dragging'); };
+carousel.addEventListener('pointerup', endDrag);
+carousel.addEventListener('pointercancel', endDrag);
+document.querySelector('.carousel-prev').addEventListener('click', () => { carouselState.velocity = 0; carouselState.rotation += angle; applyRotation(); });
+document.querySelector('.carousel-next').addEventListener('click', () => { carouselState.velocity = 0; carouselState.rotation -= angle; applyRotation(); });
+window.addEventListener('resize', updateCarouselSize);
+updateCarouselSize();
+requestAnimationFrame(tick);
 
 lightbox.querySelector('button').addEventListener('click', () => lightbox.close());
 lightbox.addEventListener('click', event => { if (event.target === lightbox) lightbox.close(); });
