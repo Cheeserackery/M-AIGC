@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import RoundCarousel from './components/RoundCarousel';
-import { galleryImages } from './data';
+import { assetPath, galleryImages } from './data';
 
 const videos = [
   { title: '郁金香钻戒', type: 'PRODUCT FILM', file: '郁金香钻戒.mp4' },
@@ -36,7 +36,7 @@ export default function App() {
 
     <main>
       <section className="hero" id="home">
-        <video className="hero-video" autoPlay muted loop playsInline preload="metadata" src="/视频/郁金香钻戒.mp4"></video>
+        <video className="hero-video" autoPlay muted loop playsInline preload="metadata" src={assetPath('视频/郁金香钻戒.mp4')}></video>
         <div className="hero-orbit orbit-one"></div><div className="hero-orbit orbit-two"></div><div className="hero-orbit orbit-three"></div>
         <Reveal className="hero-kicker">梁振轩的 AIGC 创作展示页 / 2026</Reveal>
         <div className="hero-wordmark" aria-hidden="true"><span>M</span><i></i><span>AIGC</span></div>
@@ -47,8 +47,8 @@ export default function App() {
       <section className="capabilities section-pad" id="skills">
         <Reveal className="section-intro"><p>01 / CAPABILITIES</p><h2>让工具成为<br />创作直觉。</h2><span>模型与工具，是每一次尝试的起点。</span></Reveal>
         <div className="skill-stack">
-          <article className="skill-card skill-card-models"><video autoPlay muted loop playsInline preload="metadata" src="/视频/男孩-棱镜-彩虹.mp4"></video><div><p>01 / MODELS</p><h3>熟悉的<br />AI 模型</h3></div><img className="skill-visual" src="/MODELS.png" alt="AI 模型图标" /></article>
-          <article className="skill-card skill-card-tools"><div><p>02 / TOOLS</p><h3>掌握的<br />创作<br />工具</h3></div><img className="skill-visual" src="/TOOLS.png" alt="创作工具图标" /></article>
+          <article className="skill-card skill-card-models"><video autoPlay muted loop playsInline preload="metadata" src={assetPath('视频/男孩-棱镜-彩虹.mp4')}></video><div><p>01 / MODELS</p><h3>熟悉的<br />AI 模型</h3></div><img className="skill-visual" src={assetPath('MODELS.png')} alt="AI 模型图标" /></article>
+          <article className="skill-card skill-card-tools"><div><p>02 / TOOLS</p><h3>掌握的<br />创作<br />工具</h3></div><img className="skill-visual" src={assetPath('TOOLS.png')} alt="创作工具图标" /></article>
         </div>
       </section>
 
@@ -58,16 +58,16 @@ export default function App() {
       </section>
 
       <section className="motion section-pad" id="motion">
-        <video className="motion-background" autoPlay muted loop playsInline preload="metadata" src="/视频/跑酷猫—.mp4"></video>
+        <video className="motion-background" autoPlay muted loop playsInline preload="metadata" src={assetPath('视频/跑酷猫—.mp4')}></video>
         <Reveal className="motion-heading"><p>03 / MOTION STUDIES</p><h2>让静止<br />继续生长。</h2></Reveal>
-        <div className="video-list">{videos.map((video, index) => <article className="film" key={video.file}><div className="film-meta"><span>{String(index + 1).padStart(2, '0')}</span><h3>{video.title}</h3><span>{video.type}</span></div><video autoPlay muted loop playsInline preload="metadata" src={`/视频/${video.file}`}></video></article>)}</div>
+        <div className="video-list">{videos.map((video, index) => <article className="film" key={video.file}><div className="film-meta"><span>{String(index + 1).padStart(2, '0')}</span><h3>{video.title}</h3><span>{video.type}</span></div><video autoPlay muted loop playsInline preload="metadata" src={assetPath(`视频/${video.file}`)}></video></article>)}</div>
         <p className="motion-note">因页面有限，选取部分作品展示</p>
       </section>
 
       <section className="runninghub section-pad" id="runninghub">
         <p className="section-label">04 / A PLACE TO BUILD</p>
         <a className="hub-link" href="https://www.runninghub.cn/user-center/1966438189181353985/userPost?inviteCode=s00retpj" target="_blank" rel="noreferrer"><span>RunningHub</span><i>↗</i></a>
-        <div className="hub-layout"><div className="hub-preview"><img src="/RH主页/主页.png" alt="梁振轩的 RunningHub 创作主页" /></div><div className="hub-copy"><p className="hub-kicker">PROFILE / 2026</p><h3>我的 RunningHub<br />创作主页</h3><p>持续归档工作流、模型实验与视觉项目。</p><a href="https://www.runninghub.cn/user-center/1966438189181353985/userPost?inviteCode=s00retpj" target="_blank" rel="noreferrer">访问主页 <span>↗</span></a></div></div>
+        <div className="hub-layout"><div className="hub-preview"><img src={assetPath('RH主页/主页.png')} alt="梁振轩的 RunningHub 创作主页" /></div><div className="hub-copy"><p className="hub-kicker">PROFILE / 2026</p><h3>我的 RunningHub<br />创作主页</h3><p>持续归档工作流、模型实验与视觉项目。</p><a href="https://www.runninghub.cn/user-center/1966438189181353985/userPost?inviteCode=s00retpj" target="_blank" rel="noreferrer">访问主页 <span>↗</span></a></div></div>
       </section>
     </main>
 

@@ -18,5 +18,6 @@ function copyPortfolioAssets() {
 }
 
 export default defineConfig({
+  base: '/M-AIGC/',
   plugins: [react(), copyPortfolioAssets()]
 });
